@@ -1,8 +1,11 @@
 package view;
 
 import java.util.Scanner;
+import java.util.Set;
 import model.dto.FazDTO;
 import model.dto.SalvaDTO;
+import model.operacoes.*;
+import org.reflections.Reflections;
 
 public class Menu {
 
@@ -20,11 +23,15 @@ public class Menu {
 
     public void mostrar(){
 
-        System.out.println("1.Adição");
-        System.out.println("2.Subtração");
-        System.out.println("3.Divisão");
-        System.out.println("4.Multiplicação");
 
+        System.out.println("Escolha uma das opção:");
+        Reflections reflections = new Reflections("model.operacoes");
+
+        Set<Class<? extends InterfaceOp>> todasClasses = reflections.getSubTypesOf(InterfaceOp.class);
+
+        for (Class<? extends InterfaceOp> passagemClasses : todasClasses) {
+            System.out.println(passagemClasses.getSimpleName());
+        }
     }
 
     public void mostrarResultado(SalvaDTO dto){
